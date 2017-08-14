@@ -20,14 +20,12 @@ c.height = h*pr;
 x.scale(pr, pr);
 
 
-var points = [],
-a = new Point(0, 500),
-b = new Point(w + 20, 500)
+var points = []
 
-function generateMidpoint(a, b){
+function generateMidpoint(a, b, scale){
     var midX = (a.x + b.x)/2;
     var midY = (a.y + b.y)/2;
-    var mid = new Point(midX, generateY(midY));
+    var mid = new Point(midX, generateY(midY, scale));
     
     var dist = mid.x - a.x;
     if (dist <= 5){
@@ -35,8 +33,8 @@ function generateMidpoint(a, b){
         return;
     }
 
-    generateMidpoint(a, mid);
-    generateMidpoint(mid, b);
+    generateMidpoint(a, mid, scale+10);
+    generateMidpoint(mid, b, scale+10);
 
 }
 
@@ -45,8 +43,8 @@ function midpointDisplacement(a, b){
     points.push(b);
 }
 
-function generateY(midY){
-    var random = Math.random() * (10 - 2) + 2;
+function generateY(midY, scale){
+    var random = Math.random() * (500 - 2)/scale + 2;
     var f = Math.floor(random);
     return (midY + (f * plusOrMinus()));
 }
@@ -55,10 +53,9 @@ function plusOrMinus() {
     return Math.random() < 0.5 ? -1 : 1;
 }
 
-function draw(){
-    x.clearRect(0, 0, w, h);
+function draw(a, b, color){
     points = []
-    generateMidpoint(a, b);
+    generateMidpoint(a, b, 2);
     points.forEach(function(obj, index){
         if (index == 0){
             x.beginPath();
@@ -67,9 +64,48 @@ function draw(){
             x.lineTo(obj.x, obj.y);
         }
     });
-    x.stroke();
+    x.lineTo(w, h);
+    x.lineTo(0, h);
+    x.closePath();
+    x.fillStyle = color;
+    x.fill();
     console.log(points);
 }
 
-document.onclick = draw;
-draw()
+// Earth
+// x.fillStyle = '#1d95f2';
+// x.fillRect(0, 0, w, h);
+// draw(
+//     new Point(0, 400),
+//     new Point(w+20, 200),
+//     '#9ef95e'
+// );
+// draw(
+//     new Point(0, 400),
+//     new Point(w+20, 600),    
+//     '#6cb737'
+// );
+// draw(
+//     new Point(0, 700),
+//     new Point(w+20, 400),
+//     '#3a7a0d'
+// );
+
+// Mars
+x.fillStyle = '#ead569';
+x.fillRect(0, 0, w, h);
+draw(
+    new Point(0, 200),
+    new Point(w+20, 400),
+    '#ea9760'
+);
+draw(
+    new Point(0, 500),
+    new Point(w+20, 600),    
+    '#a34625'
+);
+draw(
+    new Point(0, 700),
+    new Point(w+20, 600),
+    '#44190a'
+);
