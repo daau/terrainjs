@@ -22,10 +22,7 @@ x.scale(pr, pr);
 
 var points = [],
 a = new Point(0, 500),
-b = new Point(1000, 500)
-
-midpointDisplacement(a, b);
-console.log(points);
+b = new Point(w + 20, 500)
 
 function generateMidpoint(a, b){
     var midX = (a.x + b.x)/2;
@@ -51,20 +48,28 @@ function midpointDisplacement(a, b){
 function generateY(midY){
     var random = Math.random() * (10 - 2) + 2;
     var f = Math.floor(random);
-    return (midY + f) * plusOrMinus();
+    return (midY + (f * plusOrMinus()));
 }
 
 function plusOrMinus() {
     return Math.random() < 0.5 ? -1 : 1;
 }
 
+function draw(){
+    x.clearRect(0, 0, w, h);
+    points = []
+    generateMidpoint(a, b);
+    points.forEach(function(obj, index){
+        if (index == 0){
+            x.beginPath();
+            x.moveTo(obj.x, obj.y);
+        } else {
+            x.lineTo(obj.x, obj.y);
+        }
+    });
+    x.stroke();
+    console.log(points);
+}
 
-points.forEach(function(obj, index){
-    if (index == 0){
-        x.beginPath();
-        x.moveTo(obj.x, obj.y);
-    } else {
-        x.lineTo(obj.x, obj.y);
-    }
-});
-x.stroke();
+document.onclick = draw;
+draw()
