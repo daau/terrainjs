@@ -72,9 +72,16 @@ function draw(a, b, color){
     console.log(points);
 }
 
+function setBackground(color){
+    x.fillStyle = '#ead569';
+    x.fillRect(0, 0, w, h);
+}
+
+
+// EXAMPLES
+
 // Earth
-// x.fillStyle = '#1d95f2';
-// x.fillRect(0, 0, w, h);
+// setBackground('#1d95f2');
 // draw(
 //     new Point(0, 400),
 //     new Point(w+20, 200),
@@ -92,20 +99,19 @@ function draw(a, b, color){
 // );
 
 // Mars
-x.fillStyle = '#ead569';
-x.fillRect(0, 0, w, h);
-draw(
-    new Point(0, 200),
-    new Point(w+20, 400),
-    '#ea9760'
-);
-draw(
-    new Point(0, 500),
-    new Point(w+20, 600),    
-    '#a34625'
-);
-draw(
-    new Point(0, 700),
-    new Point(w+20, 600),
-    '#44190a'
-);
+// setBackground('#ead569');
+// draw(
+//     new Point(0, 200),
+//     new Point(w+20, 400),
+//     '#ea9760'
+// );
+// draw(
+//     new Point(0, 500),
+//     new Point(w+20, 600),    
+//     '#a34625'
+// );
+// draw(
+//     new Point(0, 700),
+//     new Point(w+20, 600),
+//     '#44190a'
+// );
