@@ -32,17 +32,17 @@ To make a field of grass, you can make several calls to the draw() function. The
 // Draw a fluffy field of grass
 draw(
     new Point(0, 400),
-    new Point(w+20, 200),
+    new Point(w, 200),
     '#9ef95e'
 );
 draw(
     new Point(0, 400),
-    new Point(w+20, 600),    
+    new Point(w, 600),    
     '#6cb737'
 );
 draw(
     new Point(0, 700),
-    new Point(w+20, 400),
+    new Point(w, 400),
     '#3a7a0d'
 );
 ```
