@@ -56,3 +56,6 @@ git clone
 open index.html
 refresh the page for new scenery!
 ```
+
+### License
+This software is released under the MIT license.
