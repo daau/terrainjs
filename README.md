@@ -1,10 +1,10 @@
 # TerrainJS
 
 ### Earth
-![Screenshot](/documentation/earth.png?raw=true "Screenshot")
+![Screenshot](/earth.png?raw=true "Screenshot")
 
 ### Mars
-![Screenshot](/documentation/mars.png?raw=true "Screenshot")
+![Screenshot](/mars.png?raw=true "Screenshot")
 
 
 This is a midpoint displacement (AKA diamond-square) based terrain generator, written in Javascript. A dynamically fitted canvas is created, and a background colour can be set. You can then draw as many terrain curves as you'd like by calling the draw() function. The draw() function takes three arguments: a starting point, an endpoint, and a colour. Example usage follows, below:
