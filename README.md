@@ -20,7 +20,7 @@ setBackground('#1d95f2');
 And, following code will generate a green terrain curve, starting from (x:0 y:500) and ending at (x:w, y:600) where w is the width of the browser.
 ```javascript
 draw(
-	new Point(0, 500),
+    new Point(0, 500),
     new Point(w, 600),
     'green'
 )
@@ -28,7 +28,7 @@ draw(
 
 To make a field of grass, you can make several calls to the draw() function. The background will be drawn first, and the foreground last.
 
-```
+```javascript
 // Draw a fluffy field of grass
 draw(
     new Point(0, 400),
