@@ -19,28 +19,28 @@ setBackground('#1d95f2');
 
 And, the following code will generate a green terrain curve, starting from (x:0 y:500) and ending at (x:w, y:600) where w is the width of the browser.
 ```javascript
-draw(
+createTerrain(
     new Point(0, 500),
     new Point(w, 600),
     'green'
 )
 ```
 
-To make a field of grass, you can make several calls to the draw() function. The background will be drawn first, and the foreground last.
+To make a field of grass, you can make several calls to the createTerrain() function. The background will be drawn first, and the foreground last.
 
 ```javascript
 // Draw a fluffy field of grass
-draw(
+createTerrain(
     new Point(0, 400),
     new Point(w, 200),
     '#9ef95e' // Light green
 );
-draw(
+createTerrain(
     new Point(0, 400),
     new Point(w, 600),    
     '#6cb737' // Medium green
 );
-draw(
+createTerrain(
     new Point(0, 700),
     new Point(w, 400),
     '#3a7a0d' // Dark green
@@ -59,7 +59,7 @@ Improvements and fork requests are welcome.
 ### Installation and usage
 ```
 git clone
-open index.html
+open index.html in your browser
 refresh the page for new scenery!
 ```
 
