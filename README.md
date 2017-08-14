@@ -7,7 +7,7 @@
 ![Screenshot](/mars.png?raw=true "Screenshot")
 
 
-This is a midpoint displacement (AKA diamond-square) based terrain generator, written in Javascript. A dynamically fitted canvas is created, and a background colour can be set. You can then draw as many terrain curves as you'd like by calling the draw() function. The draw() function takes three arguments: a starting point, an endpoint, and a colour. Example usage follows, below:
+This is a midpoint displacement (AKA diamond-square) based terrain generator, written in Javascript. A dynamically fitted canvas is created, and a background colour can be set. You can then draw as many terrain curves as you'd like by calling the createTerrain() function. The terrain curve itself is generated recursively. The createTerrain() function takes three arguments: a starting point, an endpoint, and a colour. Example usage follows, below:
 
 The following code sets the background colour.
 
@@ -17,7 +17,7 @@ setBackground('brown');
 setBackground('#1d95f2');
 ```
 
-And, following code will generate a green terrain curve, starting from (x:0 y:500) and ending at (x:w, y:600) where w is the width of the browser.
+And, the following code will generate a green terrain curve, starting from (x:0 y:500) and ending at (x:w, y:600) where w is the width of the browser.
 ```javascript
 draw(
     new Point(0, 500),
@@ -33,21 +33,27 @@ To make a field of grass, you can make several calls to the draw() function. The
 draw(
     new Point(0, 400),
     new Point(w, 200),
-    '#9ef95e'
+    '#9ef95e' // Light green
 );
 draw(
     new Point(0, 400),
     new Point(w, 600),    
-    '#6cb737'
+    '#6cb737' // Medium green
 );
 draw(
     new Point(0, 700),
     new Point(w, 400),
-    '#3a7a0d'
+    '#3a7a0d' // Dark green
 );
 ```
 
+### Customization
+Changing the DECAY, DECAY_RATE, and MIN_Y constants will affect the aggressiveness of the terrain "bumps." By adjusting these values, you can create very beautiful scenery. One example would be to have an aggressive decay rate for the foreground curve, but unaggressive decay rate for the background.
 
+Changing the MIN_X constant sets the resoution of the terrain curve.
+
+
+### Contributing
 Improvements and fork requests are welcome.
 
 ### Installation and usage
