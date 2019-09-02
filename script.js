@@ -22,8 +22,10 @@ class Point {
 }
 
 class Curve {
-    constructor(canvas, leftPoint, rightPoint, decay, decayRate, minX) {
-        this.canvas = canvas;
+    constructor(canvas, color, leftPoint, rightPoint, decay, decayRate, minX, minY) {
+        this.canvas2D = canvas.getContext('2d');
+
+        this.color = color;
 
         this.leftPoint  = leftPoint;
         this.rightPoint = rightPoint;
@@ -42,7 +44,7 @@ class Curve {
 
     // Generate points in between leftPoint and rightPoint using diamond-square
     generatePoints() {
-        this.generateMidpoint(this.leftPoint, this.right, this.decay);
+        this.generateMidpoint(this.leftPoint, this.rightPoint, this.decay);
 
         this.points.shift(this.leftPoint);
         this.points.push(this.rightPoint);
@@ -59,24 +61,24 @@ class Curve {
             return;
         }
 
-        generateMidpoint(left, mid, this.decay + this.decayRate);
-        generateMidpoint(mid, right, this.decay + this.decayRate);
+        this.generateMidpoint(left, mid, scale + this.decayRate);
+        this.generateMidpoint(mid, right, scale + this.decayRate);
     }
 
     render() {
-        this.points.forEach(function(obj, index){
+        this.points.forEach((obj, index) => {
             if (index == 0){
-                this.canvas.beginPath();
-                this.canvas.moveTo(obj.x, obj.y);
+                this.canvas2D.beginPath();
+                this.canvas2D.moveTo(obj.x, obj.y);
             } else {
-                this.canvas.lineTo(obj.x, obj.y);
+                this.canvas2D.lineTo(obj.x, obj.y);
             }
         });
-        this.canvas.lineTo(this.w, this.h);
-        this.canvas.lineTo(0, this.h);
-        this.canvas.closePath();
-        this.canvas.fillStyle = color;
-        this.canvas.fill(); 
+        this.canvas2D.lineTo(this.w, this.h);
+        this.canvas2D.lineTo(0, this.h);
+        this.canvas2D.closePath();
+        this.canvas2D.fillStyle = this.color;
+        this.canvas2D.fill(); 
     }
 
     randomY(midY, scale) {
@@ -173,20 +175,32 @@ function createTerrain(a, b, color){
     drawCurve(color);
 }
 
-// Earth
-setBackground('#6da5ff');
-createTerrain(
-    new Point(0, 500),
-    new Point(w, 300),
-    '#9ef95e'
-);
-createTerrain(
-    new Point(0, 500),
-    new Point(w, 700),    
-    '#6cb737'
-);
-createTerrain(
-    new Point(0, 800),
-    new Point(w, 500),
-    '#3a7a0d'
-);
+let curves = [];
+curves.push(new Curve(
+    c,
+    '#9ef95e',
+    new Point(0, 400),
+    new Point(w, 200),
+    DECAY,
+    DECAY_RATE,
+    MIN_X,
+    MIN_Y
+).render())
+
+// // Earth
+// setBackground('#6da5ff');
+// createTerrain(
+//     new Point(0, 500),
+//     new Point(w, 300),
+//     '#9ef95e'
+// );
+// createTerrain(
+//     new Point(0, 500),
+//     new Point(w, 700),    
+//     '#6cb737'
+// );
+// createTerrain(
+//     new Point(0, 800),
+//     new Point(w, 500),
+//     '#3a7a0d'
+// );
