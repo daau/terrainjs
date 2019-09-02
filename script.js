@@ -21,6 +21,102 @@ class Point {
     }
 }
 
+class Curve {
+    constructor(canvas, leftPoint, rightPoint, decay, decayRate, minX) {
+        this.canvas = canvas;
+
+        this.leftPoint  = leftPoint;
+        this.rightPoint = rightPoint;
+        this.points     = [];
+
+        this.decay      = decay;
+        this.decayRate  = decayRate;
+        this.minX       = minX;
+        this.minY       = minY;
+
+        this.w = window.innerWidth;
+        this.h = window.innerHeight;
+
+        this.generatePoints();
+    }
+
+    // Generate points in between leftPoint and rightPoint using diamond-square
+    generatePoints() {
+        this.generateMidpoint(this.leftPoint, this.right, this.decay);
+
+        this.points.shift(this.leftPoint);
+        this.points.push(this.rightPoint);
+    }
+
+    generateMidpoint(left, right, scale) {
+        const midX = (left.x + right.x)/2;
+        const midY = (left.y + right.y)/2;
+        const mid = new Point(midX, this.randomY(midY, scale));
+        const dist = mid.x - left.x;
+    
+        if (dist <= this.minX){
+            this.points.push(left);
+            return;
+        }
+
+        generateMidpoint(left, mid, this.decay + this.decayRate);
+        generateMidpoint(mid, right, this.decay + this.decayRate);
+    }
+
+    render() {
+        this.points.forEach(function(obj, index){
+            if (index == 0){
+                this.canvas.beginPath();
+                this.canvas.moveTo(obj.x, obj.y);
+            } else {
+                this.canvas.lineTo(obj.x, obj.y);
+            }
+        });
+        this.canvas.lineTo(this.w, this.h);
+        this.canvas.lineTo(0, this.h);
+        this.canvas.closePath();
+        this.canvas.fillStyle = color;
+        this.canvas.fill(); 
+    }
+
+    randomY(midY, scale) {
+        const random = Math.random() * this.minY/scale;
+        const f = Math.floor(random);
+        return (midY + (f * this.plusOrMinus()));
+    }
+
+    plusOrMinus() {
+        return Math.random() < 0.5 ? -1 : 1;
+    }
+}
+
+class Terrain {
+    constructor(canvas, backgroundColor, curves) {
+        this.canvas             = canvas;
+        this.backgroundColor    = backgroundColor;
+        this.curves             = curves;               // Background first, foreground last
+
+        this.w                  = window.innerWidth;
+        this.h                  = window.innerHeight;
+
+        this.generateTerrain();
+    }
+
+    generateTerrain(){
+        this.setBackground();
+        this.drawCurves();
+    }
+
+    setBackground() {
+        this.canvas.fillStyle = this.backgroundColor;
+        this.canvas.fillRect(0, 0, this.w, this.h);
+    }
+
+    drawCurves() {
+        this.curves.forEach((curve) => curve.render());
+    }
+}
+
 function generateMidpoint(a, b, scale){
     var midX = (a.x + b.x)/2;
     var midY = (a.y + b.y)/2;
